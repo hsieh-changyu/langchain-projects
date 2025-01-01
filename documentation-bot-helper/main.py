@@ -16,7 +16,6 @@ st.set_page_config(
 with st.sidebar:
     st.image(
         "https://media.licdn.com/dms/image/sync/v2/D4E18AQEM--GBUdUPJw/companyUpdate-article-image-shrink_200_200/companyUpdate-article-image-shrink_200_200/0/1667186040534/icons-semantic-searchpng?e=1738800000&v=beta&t=UTEEDYm7PHgqAD3Bie_EYkkeXzjRG-KFQbNVXeBPuA4"
-        
     )
     st.write("Welcome to the self-hosting Pinecone Documentation Helper Bot.")
     st.markdown(
@@ -32,7 +31,7 @@ st.markdown(
     **Welcome!** This chatbot is powered by <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/0*puT7vGWrtcbaD6VY.png" alt="LangChain Logo" width="100" style="display:inline-block;">
     and helps you interact with documentation efficiently. Type your query below to get started.
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
 
@@ -82,8 +81,12 @@ if prompt:
         generated_response = run_llm(
             query=prompt, chat_history=st.session_state["chat_history"]
         )
-        #sources = set(doc.metadata["source"] for doc in generated_response["context"])
-        sources = [doc.metadata.get("source") for doc in generated_response["context"] if doc.metadata.get("source") is not None] 
+        # sources = set(doc.metadata["source"] for doc in generated_response["context"])
+        sources = [
+            doc.metadata.get("source")
+            for doc in generated_response["context"]
+            if doc.metadata.get("source") is not None
+        ]
         print(sources)
         formatted_response = (
             f"{generated_response['answer']} \n\n{create_sources_string(sources)}"

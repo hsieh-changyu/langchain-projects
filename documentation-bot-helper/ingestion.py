@@ -33,18 +33,20 @@ def ingest_docs():
 def ingest_firecrawl():
     from langchain_community.document_loaders.firecrawl import FireCrawlLoader
 
-    base_url = ["https://docs.pinecone.io/guides/indexes/understanding-indexes",
-                "https://docs.pinecone.io/guides/get-started/quickstart",
-                "https://docs.pinecone.io/guides/organizations/manage-billing/changing-your-billing-plan"]
-    base_url2 = ["https://docs.pinecone.io/guides/indexes/understanding-indexes","https://docs.pinecone.io/guides/get-started/quickstart"]
+    base_url = [
+        "https://docs.pinecone.io/guides/indexes/understanding-indexes",
+        "https://docs.pinecone.io/guides/get-started/quickstart",
+        "https://docs.pinecone.io/guides/organizations/manage-billing/changing-your-billing-plan",
+    ]
+    base_url2 = [
+        "https://docs.pinecone.io/guides/indexes/understanding-indexes",
+        "https://docs.pinecone.io/guides/get-started/quickstart",
+    ]
     for url in base_url2:
         loader = FireCrawlLoader(
             url=url,
             mode="crawl",
-            params={
-                "limit": 5, 
-                "pageOptions": {"onlyMainContent": True}
-            }
+            params={"limit": 5, "pageOptions": {"onlyMainContent": True}},
         )
         docs = loader.load()
         for doc in docs:
@@ -56,9 +58,8 @@ def ingest_firecrawl():
             docs, embeddings, index_name="firecrawl-index"
         )
         print("****Loading to vectorstore done ***")
-    
 
 
 if __name__ == "__main__":
-    #ingest_docs()
+    # ingest_docs()
     ingest_firecrawl()
