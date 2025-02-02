@@ -2,6 +2,7 @@
 There are two projects developed by LangChain in this repo
 1. Pinecone Documentation Bot
 2. Python Code Interpreter
+3. Advanced RAG using LangGraph(corrective RAG and self RAG) implementation
 
 
 ## Pinecone Documentation Bot through LangChain 
@@ -58,3 +59,14 @@ Fig. The inference process shown in console to analyze the csv file
 
 ![pythonReActAgentResult](https://drive.google.com/uc?id=1QjvHhaydLf57IBG4czNnY0z4PXzo7Kic)
 Fig. The inference process shown in console to generate QR code and save in the disk.
+
+## Advanced RAG using LangGraph with corrective and self RAG technique
+![pythonReActAgentResult](https://github.com/hsieh-changyu/langchain-projects/blob/main/advanced-rag/graph.png)
+Fig. The graph representation of the flow
+
+
+This project is going to help us get more quality answers when performing retrieval.
+
+We first want to start by taking our query, performing in the vector search, semantic search, and retrieving relevant documents from our vector store. After we have all those documents, we want to start in, self-reflect, to critique those documents, and to determine whether they are indeed relevant to our original query or not.
+
+If all of the documents are relevant to our query, then this is a happy flow and pass to LLM to generate the answer. However, documents that we find out that are not relevant to our query, we will filter them out, and perform some external web searches to obtain more information. This augment our prompt with real time information. After that, we can further verify whether an LLM generation is grounded in or supported by a sets of retrieved facts (to see if LLM was hallucinating). 
